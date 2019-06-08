@@ -17,7 +17,7 @@ Deep CNN, ConvLSTM, Resnet v2 and ResNexT network architectures were also evalua
 
 Model evaluation:
 
-The evaluation was done with both h5 and tflite (size optimized and not optimized) models on cocominival set (excluding the small persons and crowd images). The accuracy of the model was consistent at 88.2% across all three versions.
+The evaluation was done with both h5 and tflite (size optimized and not optimized) models on cocominival set (excluding the small persons and crowd images). The accuracy of the model was consistent at 88.2% and above across all three models. (Pls note that the small person images as noted in the challenge were dropped from the set for accuracy measurement)
 
 On evaluating the images from cocominival set that were identified incorrectly by the model, several errors were found with coco dataset itself some of which are listed below. If these annotations are fixed, the reported accuracy of the model will be even higher.
 
