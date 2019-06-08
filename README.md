@@ -21,13 +21,13 @@ The evaluation was done with both h5 and tflite (size optimized and not optimize
 
 On evaluating the images from cocominival set that were identified incorrectly by the model, several errors were found with coco dataset itself some of which are listed below. If these annotations are fixed, the reported accuracy of the model will be even higher.
 
-COCO_val2014_000000057904.jpg => hand not annotated properly 
-COCO_val2014_000000202154.jpg => not annotated properly, not a person 
-COCO_val2014_000000511453.jpg => lady on beer bottle not annotated 
-COCO_val2014_000000538064.jpg => human shaped statue not labelled as person, elsewhere inanimate person shaped objects are
-COCO_val2014_000000109797.jpg => portrait not annotated properly COCO_val2014_000000449798.jpg => person shaped toys not annotated, elsewhere it is 
-COCO_val2014_000000462632.jpg => person on laptop not annotated, elsewhere pics etc are annotated 
-COCO_val2014_000000524245.jpg => person not annotated
+1. COCO_val2014_000000057904.jpg => hand not annotated properly 
+2. COCO_val2014_000000202154.jpg => not annotated properly, not a person 
+3. COCO_val2014_000000511453.jpg => lady on beer bottle not annotated 
+4. COCO_val2014_000000538064.jpg => human shaped statue not labelled as person, elsewhere inanimate person shaped objects are
+5. COCO_val2014_000000109797.jpg => portrait not annotated properly COCO_val2014_000000449798.jpg => person shaped toys not annotated, elsewhere it is 
+6. COCO_val2014_000000462632.jpg => person on laptop not annotated, elsewhere pics etc are annotated 
+7. COCO_val2014_000000524245.jpg => person not annotated
 
 Analysis of errors shows that ~70% of errors (i.e., images misidentified by the model) are images annotated as persons. These can be further classified as:
 
