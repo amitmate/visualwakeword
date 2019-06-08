@@ -1,6 +1,39 @@
 MIT License
+COPYRIGHT
 
-Copyright (c) 2019 Amit Mate
+Copyright (c) 2019 amitmate
+
+All contributions by François Chollet:
+Copyright (c) 2015 - 2019, François Chollet.
+All rights reserved.
+
+All contributions by Google:
+Copyright (c) 2015 - 2019, Google, Inc.
+All rights reserved.
+
+All contributions by Microsoft:
+Copyright (c) 2017 - 2019, Microsoft, Inc.
+All rights reserved.
+
+All other contributions:
+Copyright (c) 2015 - 2019, the respective contributors.
+All rights reserved.
+
+Each contributor holds copyright over their respective contributions.
+The project versioning (Git) records all such contribution source information.
+
+Other Applicable Licenses: 
+
+Keras MIT license : https://github.com/keras-team/keras/blob/master/LICENSE
+Coco API license: https://github.com/cocodataset/cocoapi/blob/master/license.txt
+Google Tensorflow Apache 2.0 license: https://github.com/tensorflow/tensorflow/blob/master/LICENSE
+OpenCV Python license: https://github.com/opencv/opencv_contrib/blob/master/LICENSE
+Random Erase Apache 2.0 license: https://github.com/zhunzhong07/Random-Erasing/blob/master/LICENSE
+Focal Loss MIT license: https://github.com/mkocabas/focal-loss-keras/blob/master/LICENSE
+
+LICENSE
+
+The MIT License (MIT)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +52,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Copyright (c) 2019 amitmate
