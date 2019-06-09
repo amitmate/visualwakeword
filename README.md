@@ -1,5 +1,6 @@
 # Google visual wake word challenge 2019 submission by Amit Mate - amit_mate@hotmail.com
 
+(For any details and queries pls contact Amit Mate)
 
 modelVisualWakeWord.h5 => Keras model file
 
