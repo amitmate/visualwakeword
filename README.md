@@ -1,4 +1,4 @@
-# Google visual wake word challenge 2019 submission 
+# Google visual wake word challenge 2019 submission https://docs.google.com/document/u/2/d/e/2PACX-1vStp3uPhxJB0YTwL4T__Q5xjclmrj6KRs55xtMJrCyi82GoyHDp2X0KdhoYcyjEzKe4v75WBqPObdkP/pub
 
 (For any details and queries pls contact - amit_mate@hotmail.com)
 
