@@ -29,7 +29,7 @@ def eval_model(interpreter, coco_ds):
 
   return float(num_correct) / float(total_seen)
 
-#function to print evaluation accuracy stats
+#function to print evaluation accuracy stats on x_test (batchsize,96, 96. 3) and y_test (batch size, 1)
 def eval_data(x_test,y_test) :
     images, labels = tf.cast(x_test, tf.float32), y_test
     print(images.shape)
