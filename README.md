@@ -1,4 +1,4 @@
-# visualwakeword
+# visualwakeword submission by Amit Mate - amit_mate@hotmail.com
 Submission for the Google visual wake word challenge 2019
 
 modelVisualWakeWord.h5 => Keras model file
