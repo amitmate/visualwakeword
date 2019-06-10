@@ -27,7 +27,7 @@ Other Applicable Licenses:
 Keras MIT license : https://github.com/keras-team/keras/blob/master/LICENSE
 Coco API license: https://github.com/cocodataset/cocoapi/blob/master/license.txt
 Google Tensorflow Apache 2.0 license: https://github.com/tensorflow/tensorflow/blob/master/LICENSE
-OpenCV Python license: https://github.com/opencv/opencv_contrib/blob/master/LICENSE
+OpenCV Python BSD license: https://github.com/opencv/opencv_contrib/blob/master/LICENSE
 Random Erase Apache 2.0 license: https://github.com/zhunzhong07/Random-Erasing/blob/master/LICENSE
 Focal Loss MIT license: https://github.com/mkocabas/focal-loss-keras/blob/master/LICENSE
 
