@@ -38,7 +38,7 @@ Analysis of errors shows that ~70% of errors (i.e., images misidentified by the 
 3. Gray or Low-light images 
 4. Small (< 0.5% area) persons (in crowd as well)
 
-The remaining ~30% of errors are images annotated as non-persons, confusion is caused by objects with human like features.These can be classified as
+The remaining ~40% of errors are images annotated as non-persons, confusion is caused by objects with human like features.These can be classified as
 
 1. Animals - cats, cows, giraffes, pandas
 2. Chairs
