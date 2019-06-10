@@ -26,16 +26,17 @@ On evaluating the images from cocominival set that were identified incorrectly b
 2. COCO_val2014_000000202154.jpg => not annotated properly, not a person 
 3. COCO_val2014_000000511453.jpg => lady on beer bottle not annotated 
 4. COCO_val2014_000000538064.jpg => human shaped statue not labelled as person, elsewhere inanimate person shaped objects are
-5. COCO_val2014_000000109797.jpg => portrait not annotated properly COCO_val2014_000000449798.jpg => person shaped toys not annotated, elsewhere it is 
-6. COCO_val2014_000000462632.jpg => person on laptop not annotated, elsewhere pics etc are annotated 
-7. COCO_val2014_000000524245.jpg => person not annotated
+5. COCO_val2014_000000109797.jpg => portrait not annotated properly 
+6. COCO_val2014_000000449798.jpg => person shaped toys not annotated, elsewhere it is 
+7. COCO_val2014_000000462632.jpg => person on laptop not annotated, elsewhere pics etc are annotated 
+8. COCO_val2014_000000524245.jpg => person not annotated
 
 Analysis of errors shows that ~70% of errors (i.e., images misidentified by the model) are images annotated as persons. These can be further classified as:
 
 1. Small visible body parts e.g., just hands or just feet
 2. Fully covered body - e.g., gloves+coat+helmet
 3. Gray or Low-light images 
-4. Crowd and Small (< 0.5% area) persons
+4. Small (< 0.5% area) persons (in crowd as well)
 
 The remaining ~30% of errors are images annotated as non-persons, confusion is caused by objects with human like features.These can be classified as
 
