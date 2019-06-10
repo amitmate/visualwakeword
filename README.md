@@ -31,7 +31,7 @@ On evaluating the images from cocominival set that were identified incorrectly b
 7. COCO_val2014_000000462632.jpg => person on laptop not annotated, elsewhere pics etc are annotated 
 8. COCO_val2014_000000524245.jpg => person not annotated
 
-Analysis of errors shows that ~70% of errors (i.e., images misidentified by the model) are images annotated as persons. These can be further classified as:
+Analysis of errors shows that ~60% of errors (i.e., images misidentified by the model) are images annotated as persons. These can be further classified as:
 
 1. Small visible body parts e.g., just hands or just feet
 2. Fully covered body - e.g., gloves+coat+helmet
