@@ -4,7 +4,7 @@
 
 modelVisualWakeWord.h5 => Keras model file
 
-modelVisualWakeWord.tflite => tensorflow lite size optimized model (post training quantization)
+modelVisualWakeWord.tflite => tensorflow lite size optimized model (post training optimization)
 
 Model:
 
