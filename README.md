@@ -36,7 +36,7 @@ Analysis of errors shows that ~60% of errors (i.e., images misidentified by the 
 1. Small visible body parts e.g., just hands or just feet
 2. Fully covered body - e.g., gloves+coat+helmet
 3. Gray or Low-light images 
-4. Small (< 0.5% area) persons (in crowd as well)
+4. Small persons , esp in crowd 
 
 The remaining ~40% of errors are images annotated as non-persons, confusion is caused by objects with human like features.These can be classified as
 
