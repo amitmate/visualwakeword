@@ -1,4 +1,4 @@
-# Google visual wake word challenge 2019 submission https://tinyurl.com/wakewordchallenge
+# Google visual wake word challenge 2019 ( VWW VWWC 2019) submission https://tinyurl.com/wakewordchallenge
 
 (For any details and queries pls contact - amit_mate@hotmail.com)
 
