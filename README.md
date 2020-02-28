@@ -1,4 +1,4 @@
-(FOR YC - This is a sample model and highlights the process. We have working models for more complex use-cases such as anpr, face-reco, depth, drl, speech etc)
+(FOR YC - This is a sample model and highlights the process. We have working models for more complex use-cases such as anpr, face-reco, depth, drl, speech etc. For sample innovations in the area of Robotics - pls see DRL_AmitMate.pdf)
 
 # Google visual wake word challenge 2019 ( VWW VWWC 2019) submission https://tinyurl.com/wakewordchallenge
 
