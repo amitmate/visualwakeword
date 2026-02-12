@@ -22,6 +22,7 @@ import tensorflow as tf
 
 H5_PATH = "modelVisualWakeWord.h5"
 ORIGINAL_TFLITE = "modelVisualWakeWord.tflite"
+INPUT_SHAPE = (96, 96, 3)
 BLOCK_SIZE = 32  # MX block size per the OCP spec
 OUT_DIR = "compressed_models"
 
@@ -121,16 +122,15 @@ def unpack_fp4(data, count):
 def quantize_weights_fp4(model):
     """Quantize all model weights to MX-FP4 format.
 
-    Returns list of (name, shape, scales, packed_codes) per weight tensor,
+    Returns list of (idx, name, shape, scales, packed_codes) per weight tensor,
     plus the raw bytes for a compact binary file.
     """
     entries = []
     total_original_bytes = 0
     total_fp4_bytes = 0
 
-    for layer in model.layers:
-        for w in layer.weights:
-            name = w.name
+    for idx, w in enumerate(model.weights):
+            name = f"w{idx}_{w.name}"
             arr = w.numpy().flatten()
             shape = w.shape
 
@@ -266,20 +266,18 @@ def evaluate_quantization_error(model, entries):
     print("\n  Per-layer quantization error (RMSE / max|w|):")
     total_mse = 0
     total_n = 0
-    for layer in model.layers:
-        for w in layer.weights:
-            name = w.name
-            original = w.numpy()
-            entry = next(e for e in entries if e['name'] == name)
-            reconstructed = dequantize_entry(entry)
-            diff = original - reconstructed
-            rmse = np.sqrt(np.mean(diff ** 2))
-            wmax = np.max(np.abs(original))
-            rel = rmse / wmax if wmax > 0 else 0
-            total_mse += np.sum(diff ** 2)
-            total_n += diff.size
-            if diff.size > 50:  # skip tiny biases
-                print(f"    {name:45s}  RMSE={rmse:.6f}  rel={rel:.4f}  shape={list(original.shape)}")
+    for idx, w in enumerate(model.weights):
+        original = w.numpy()
+        entry = entries[idx]
+        reconstructed = dequantize_entry(entry)
+        diff = original - reconstructed
+        rmse = np.sqrt(np.mean(diff ** 2))
+        wmax = np.max(np.abs(original))
+        rel = rmse / wmax if wmax > 0 else 0
+        total_mse += np.sum(diff ** 2)
+        total_n += diff.size
+        if diff.size > 50:  # skip tiny biases
+            print(f"    {entry['name']:45s}  RMSE={rmse:.6f}  rel={rel:.4f}  shape={list(original.shape)}")
 
     total_rmse = np.sqrt(total_mse / total_n)
     print(f"  Overall RMSE: {total_rmse:.6f}")
@@ -287,14 +285,10 @@ def evaluate_quantization_error(model, entries):
 
 def apply_fp4_weights(model, entries):
     """Replace model weights with FP4-dequantized values."""
-    weight_map = {e['name']: e for e in entries}
-    for layer in model.layers:
-        new_weights = []
-        for w in layer.weights:
-            entry = weight_map[w.name]
-            new_weights.append(dequantize_entry(entry))
-        if new_weights:
-            layer.set_weights(new_weights)
+    new_weights = []
+    for idx, w in enumerate(model.weights):
+        new_weights.append(dequantize_entry(entries[idx]))
+    model.set_weights(new_weights)
 
 
 def convert_fp4_model_to_tflite(model, entries):
@@ -373,6 +367,28 @@ def main():
     with open(tflite_gz_path, 'wb') as f:
         f.write(tflite_gz)
     print(f"  FP4→int8 + gzip:  {len(tflite_gz):>8,} bytes ({len(tflite_gz)/1024:.1f} KB)")
+
+    # ── Prediction agreement test ──
+    print("\n  Prediction agreement: original vs FP4-dequantized model...")
+    model_orig = tf.keras.models.load_model(H5_PATH, compile=False)
+    model_fp4 = tf.keras.models.load_model(H5_PATH, compile=False)
+    apply_fp4_weights(model_fp4, entries)
+
+    N_TEST = 2000
+    np.random.seed(42)
+    test_inputs = np.random.uniform(-1.0, 1.0, (N_TEST, *INPUT_SHAPE)).astype(np.float32)
+
+    preds_orig = model_orig.predict(test_inputs, batch_size=64, verbose=0)
+    preds_fp4 = model_fp4.predict(test_inputs, batch_size=64, verbose=0)
+
+    labels_orig = (preds_orig > 0.5).astype(np.uint8)
+    labels_fp4 = (preds_fp4 > 0.5).astype(np.uint8)
+
+    agreement = np.mean(labels_orig == labels_fp4) * 100
+    prob_diff = np.abs(preds_orig - preds_fp4)
+    print(f"  Binary prediction agreement: {agreement:.1f}% ({N_TEST} random samples)")
+    print(f"  Probability diff: mean={np.mean(prob_diff):.6f}  max={np.max(prob_diff):.6f}")
+    print(f"  → If original accuracy = 88.3%, FP4 estimated accuracy ≈ {88.3 * agreement / 100:.1f}%")
 
     # ── Summary ──
     print(f"\n{'=' * 65}")
