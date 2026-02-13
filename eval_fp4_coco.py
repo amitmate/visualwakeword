@@ -71,8 +71,10 @@ def dequantize_block_mx_fp4(scale, codes):
 
 
 def dequantize_entry(entry):
-    n = entry['n_elements']
     shape = entry['shape']
+    if not entry.get('quantized', True):
+        return entry['raw_data'].reshape(shape)
+    n = entry['n_elements']
     scales = entry['scales']
     codes = entry['codes']
     pad_len = (BLOCK_SIZE - n % BLOCK_SIZE) % BLOCK_SIZE
@@ -87,28 +89,39 @@ def dequantize_entry(entry):
 
 
 MAGIC = b'MXF4'
+FORMAT_VERSION = 2
 
 def load_fp4_binary(path):
     entries = []
     with open(path, 'rb') as f:
         magic = f.read(4)
         assert magic == MAGIC, f"Bad magic: {magic}"
+        version = struct.unpack('<B', f.read(1))[0]
+        assert version == FORMAT_VERSION, f"Unsupported format version: {version}"
         n_entries = struct.unpack('<I', f.read(4))[0]
         for _ in range(n_entries):
+            quantized = struct.unpack('<B', f.read(1))[0] == 1
             name_len = struct.unpack('<H', f.read(2))[0]
             name = f.read(name_len).decode('utf-8')
             ndims = struct.unpack('<B', f.read(1))[0]
             shape = [struct.unpack('<I', f.read(4))[0] for _ in range(ndims)]
             n_elements = struct.unpack('<I', f.read(4))[0]
-            n_scales = struct.unpack('<I', f.read(4))[0]
-            scales = np.frombuffer(f.read(n_scales * 4), dtype=np.float32).copy()
-            packed_len = struct.unpack('<I', f.read(4))[0]
-            packed_data = f.read(packed_len)
-            codes = unpack_fp4(packed_data, n_elements)
-            entries.append({
-                'name': name, 'shape': shape, 'n_elements': n_elements,
-                'scales': scales, 'codes': codes,
-            })
+            if quantized:
+                n_scales = struct.unpack('<I', f.read(4))[0]
+                scales = np.frombuffer(f.read(n_scales * 4), dtype=np.float32).copy()
+                packed_len = struct.unpack('<I', f.read(4))[0]
+                packed_data = f.read(packed_len)
+                codes = unpack_fp4(packed_data, n_elements)
+                entries.append({
+                    'name': name, 'shape': shape, 'n_elements': n_elements,
+                    'quantized': True, 'scales': scales, 'codes': codes,
+                })
+            else:
+                raw = np.frombuffer(f.read(n_elements * 4), dtype=np.float32).copy()
+                entries.append({
+                    'name': name, 'shape': shape, 'n_elements': n_elements,
+                    'quantized': False, 'raw_data': raw,
+                })
     return entries
 
 
